@@ -1,0 +1,11 @@
+{
+  "dependencies": {
+    "browserify": "^15.1.0"
+  },
+  "scripts": {
+    "build": "browserify ./src/*.js -o ./public/app.js"
+  },
+  "devDependencies": {
+    "gulp": "^4.0.0"
+  }
+}
