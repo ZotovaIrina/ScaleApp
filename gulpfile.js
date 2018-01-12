@@ -1,8 +1,12 @@
-var gulp = require('gulp');
+'use strict';
 
-gulp.task('default', defaultTask);
+const gulp = require('gulp');
 
-function defaultTask(done) {
-    // place code for your default task here
-    done();
+function requireTask(taskName, path, options) {
+    options = options || {};
+    options.taskName = taskName;
+    gulp.task(taskName, function(callback) {
+        var task = require(path).call(this, options);
+        return task(callback);
+    })
 }

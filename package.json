@@ -1,11 +1,16 @@
 {
+  "name": "scale-app",
+  "version": "0.1.0",
+  "private": true,
   "dependencies": {
-    "browserify": "^15.1.0"
+    "react": "^16.2.0",
+    "react-dom": "^16.2.0",
+    "react-scripts": "1.0.17"
   },
   "scripts": {
-    "build": "browserify ./src/*.js -o ./public/app.js"
-  },
-  "devDependencies": {
-    "gulp": "^4.0.0"
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject"
   }
 }
