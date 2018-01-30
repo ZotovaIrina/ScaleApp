@@ -3,8 +3,8 @@ import {
     Route
 } from 'react-router-dom';
 
-import mainPage from './pages/mainPage/mainPage'
-import Weight from './pages/weight/weight'
+import mainPage from './pages/mainPage/MainPage'
+import Weight from './pages/weight/Weight'
 
 class Routes extends React.Component {
     render() {
