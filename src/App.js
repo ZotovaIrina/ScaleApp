@@ -3,7 +3,7 @@ import {
     BrowserRouter as Router
 } from 'react-router-dom';
 import Routes from './routes'
-import NavigationBar from './NavigationBar/NavigationBar.js'
+import NavigationBar from './components/navigationBar/NavigationBar.js'
 
 class App extends React.Component {
     render() {
