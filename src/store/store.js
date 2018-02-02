@@ -1,25 +1,9 @@
 import {combineReducers, createStore, applyMiddleware} from 'redux';
 import logger from 'redux-logger'
 
-const INITIAL_STATE = {
-    user: {name: 'Irina'},
-    weight: []
-};
-
-const userReducer = (state = INITIAL_STATE.user, action) => {
-    let newState = {...state};
-    switch (action.type) {
-        case 'SET_NAME': {
-
-            newState.name = action.payload;
-        }
-    }
-    return newState;
-};
-const weightReducer = (state = INITIAL_STATE.weight, action) => {
-    let newState = {...state};
-    return newState;
-};
+import INITIAL_STATE from './initialState'
+import userReducer from './reducers/userReducer'
+import weightReducer from './reducers/weightReducer'
 
 const reducers = combineReducers({
     user: userReducer,
