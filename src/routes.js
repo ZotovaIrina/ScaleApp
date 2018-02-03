@@ -3,18 +3,24 @@ import {
     Route
 } from 'react-router-dom';
 
-import mainPage from './pages/mainPage/MainPage'
+import MainPage from './pages/mainPage/MainPage'
 import Weight from './pages/weight/Weight'
+import LoginPage from './pages/loginPage/LoginPage'
+import storage from './store/actions/storage'
 
 class Routes extends React.Component {
     render() {
         return (
             <div>
-                <Route exact path="/" component={mainPage}></Route>
+                <Route exact path="/" component={LoginIsExist() ? MainPage : LoginPage}></Route>
                 <Route exact path="/weight" component={Weight}></Route>
             </div>
         )
     }
+}
+
+function LoginIsExist() {
+    return storage.getItem('UserName');
 }
 
 

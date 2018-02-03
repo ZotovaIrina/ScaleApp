@@ -1,7 +1,7 @@
 import {combineReducers, createStore, applyMiddleware} from 'redux';
 import logger from 'redux-logger'
+import thunk from 'redux-thunk'
 
-import INITIAL_STATE from './initialState'
 import userReducer from './reducers/userReducer'
 import weightReducer from './reducers/weightReducer'
 
@@ -24,7 +24,7 @@ const error = (store) => (next) => (action) => {
 
 };
 
-const middleware = applyMiddleware(loggerFunction, logger, error);
+const middleware = applyMiddleware(loggerFunction, logger, thunk, error);
 
 
 const store = createStore(reducers,{
