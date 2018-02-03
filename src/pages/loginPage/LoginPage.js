@@ -46,7 +46,7 @@ class LoginPage extends React.Component {
         } else {
             this.setState({
                 isDisabled: true,
-                errorMessage: <p>{this.userNameIsValid(event.target.value).error}</p>
+                errorMessage: <p className="small text-danger">{this.userNameIsValid(event.target.value).error}</p>
             });
         }
     }
@@ -73,25 +73,32 @@ class LoginPage extends React.Component {
             <div>
                 <h1>Hello New User!</h1>
                 <p>Please input login and password</p>
-                <form>
-                    <label>User Name:
+                <form className="form-group">
+                    <label className="row">
+                        <p className="col">User Name:</p>
                         <input name="userName"
                                type="text"
+                               className={this.state.errorMessage ? "col form-control border-danger" : "col form-control"}
                                value={this.state.userName}
                                onChange={this.onChange}
                                placeholder="User Name"
                                onBlur={(event) => this.onHandleBlur(event)}/>
                     </label>
                     {this.state.errorMessage}
-                    <label>Password:
+                    <label className="row">
+                        <p className="col">Password:</p>
                         <input name="password"
-                               type="password"/>
+                               type="password"
+                               className="col form-control"/>
                     </label>
-                    <button type="Submit"
+                   <div className="row">
+                       <button type="Submit"
                             disabled={this.state.isDisabled}
+                            className={this.state.isDisabled ? ' btn col btn-secondary' : 'btn col btn-primary'}
                             onClick={() => this.submitLogin()}>
                         Submit
                     </button>
+                   </div>
                 </form>
             </div>
         )
