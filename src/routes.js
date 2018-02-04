@@ -6,7 +6,7 @@ import {
 import MainPage from './pages/mainPage/MainPage'
 import Weight from './pages/weight/Weight'
 import LoginPage from './pages/loginPage/LoginPage'
-import storage from './store/actions/storage'
+import storage from './store/middleware/storage'
 
 class Routes extends React.Component {
     render() {

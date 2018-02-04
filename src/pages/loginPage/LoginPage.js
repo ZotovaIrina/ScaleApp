@@ -1,5 +1,5 @@
 import React from 'react';
-import storage from '../../store/actions/storage';
+import storage from '../../store/middleware/storage';
 
 class LoginPage extends React.Component {
 
