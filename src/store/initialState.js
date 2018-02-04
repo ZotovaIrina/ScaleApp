@@ -1,4 +1,14 @@
-export default  {
-    user: {name: 'Irina'},
-    weight: [],
+import storage from './middleware/storage'
+
+let INITIAL_STATE = () => {
+    let data = {
+        user: {
+            userName: '',
+        },
+        weight: [],
+    };
+    data.user.userName = storage.getItem('UserName') ? storage.getItem('UserName') : '';
+    return data
 };
+
+export default INITIAL_STATE();

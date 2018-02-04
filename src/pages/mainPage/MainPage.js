@@ -9,7 +9,7 @@ class MainPage extends Component {
         return (
                 <div>
                     <h1>Main Page</h1>
-                    <p>Hello {this.props.user.name}</p>
+                    <p>Hello {this.props.user.userName}</p>
                     <button onClick={() => {this.props.setName('Sofia')}}>Set Name Sofia</button>
                 </div>
         )
