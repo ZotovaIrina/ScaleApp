@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {setName} from '../../store/actions/userActions'
+import ChangeUserName from '../../components/changeUserName/ChangeUserName'
 
 
 class MainPage extends Component {
@@ -10,7 +11,7 @@ class MainPage extends Component {
                 <div>
                     <h1>Main Page</h1>
                     <p>Hello {this.props.user.userName}</p>
-                    <button onClick={() => {this.props.setName('Sofia')}}>Set Name Sofia</button>
+                    <ChangeUserName />
                 </div>
         )
     }
