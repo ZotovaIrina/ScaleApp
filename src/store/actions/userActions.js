@@ -4,3 +4,10 @@ export function setName(name) {
         payload: name
     }
 }
+
+export function getName() {
+    return {
+        type: 'SET_NAME',
+        payload: ''
+    }
+}
