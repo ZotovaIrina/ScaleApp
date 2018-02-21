@@ -1,31 +1,38 @@
 import React from 'react';
+//TODO: Use Redux.  Access to storage should be with Redux actions
+// Storage is used like database.
 import storage from '../../store/middleware/storage';
 
 class LoginPage extends React.Component {
 
     constructor(props) {
         super(props);
+        //TODO: errorMessage should be returned from validation component
         this.state = {
             userName: '',
             errorMessage: '',
             isDisabled: true,
         };
+        // Binding context of current instance of LoginPage class to ensure proper context for the method call
         this.onChange = this.onHandleChange.bind(this);
     }
 
+    // TODO: All text in App should be taken from JSON
     errorUserNameShort = 'Username should contain no less than 3 symbols';
     errorUserNameIsRequired = 'User Name is Required';
 
     submitLogin() {
+        //TODO: Use Redux action
         storage.setItem('UserName', this.state.userName)
     }
 
+    //TODO: move in separate component to handle validation
     onHandleChange(event) {
         let value = event.target.value;
+        //TODO: call setState one time in the end of this method
         this.setState({
             [event.target.name]: value,
         });
-        this.userNameIsValid(value);
         if (this.userNameIsValid(value).isValid) {
             this.setState({
                 isDisabled: false,
@@ -46,11 +53,13 @@ class LoginPage extends React.Component {
         } else {
             this.setState({
                 isDisabled: true,
+                //TODO: Remove tag from state. Use string value. Add condition to template to show this p tag if sting is not empty
                 errorMessage: <p className="small text-danger">{this.userNameIsValid(event.target.value).error}</p>
             });
         }
     }
 
+    //TODO: Refactor it to be called validateUserName and return error message as a string or null if value is correct
     userNameIsValid(value) {
         if(value.length >= 3) {
             return {isValid: true};
@@ -76,6 +85,9 @@ class LoginPage extends React.Component {
                 <form className="form-group">
                     <label className="row">
                         <p className="col">User Name:</p>
+                        {/*TODO: move input in separate component to handle validation.*/}
+                        {/*Component should render input and takes parameters: value, className and onValidationError*/}
+                        {/*(will return error message)*/}
                         <input name="userName"
                                type="text"
                                className={this.state.errorMessage ? "col form-control border-danger" : "col form-control"}
