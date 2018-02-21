@@ -1,3 +1,7 @@
+/*
+This component shows a login form and validates user name.
+ */
+
 import React from 'react';
 //TODO: Use Redux.  Access to storage should be with Redux actions
 // Storage is used like database.
@@ -23,6 +27,7 @@ class LoginPage extends React.Component {
 
     submitLogin() {
         //TODO: Use Redux action
+        //TODO: prevent default submit event and navigate to main page
         storage.setItem('UserName', this.state.userName)
     }
 
@@ -103,6 +108,7 @@ class LoginPage extends React.Component {
                                type="password"
                                className="col form-control"/>
                     </label>
+                    {/*TODO: use onSubmit event on the form instead onClick*/}
                    <div className="row">
                        <button type="Submit"
                             disabled={this.state.isDisabled}
