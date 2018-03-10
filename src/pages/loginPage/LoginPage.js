@@ -10,7 +10,7 @@ class LoginPage extends React.Component {
         //TODO: errorMessage should be returned from validation component
         this.state = {
             userName: '',
-            errorMessage: '',
+            userNameErrorMessage: '',
         };
     }
 
@@ -26,8 +26,9 @@ class LoginPage extends React.Component {
                 <h1>Hello New User!</h1>
                 <p>Please input login and password</p>
                 <form className="form-group">
-                    <NameValidation userName={this.state.userName} />
-                    {this.state.errorMessage}
+                    <NameValidation userName={this.state.userName}
+                                    userNameErrorMessage={this.state.userNameErrorMessage}/>
+                    {this.state.userNameErrorMessage}
                     <label className="row">
                         <p className="col">Password:</p>
                         <input name="password"
@@ -35,14 +36,14 @@ class LoginPage extends React.Component {
                                className="col form-control"/>
                     </label>
                     {/*TODO: use onSubmit event on the form instead onClick*/}
-                   <div className="row">
-                       <button type="Submit"
-                            disabled={this.state.errorMessage}
-                            className={this.state.errorMessage ? ' btn col btn-secondary' : 'btn col btn-primary'}
-                            onClick={() => this.submitLogin()}>
-                        Submit
-                    </button>
-                   </div>
+                    <div className="row">
+                        <button type="Submit"
+                                disabled={this.state.errorMessage}
+                                className={this.state.errorMessage ? ' btn col btn-secondary' : 'btn col btn-primary'}
+                                onClick={() => this.submitLogin()}>
+                            Submit
+                        </button>
+                    </div>
                 </form>
             </div>
         )

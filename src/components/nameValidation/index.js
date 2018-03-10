@@ -6,8 +6,8 @@ class NameValidation extends React.Component {
         super(param);
         this.state = {
             userName: this.props.userName ? '' : this.props.userName,
-            errorMessage: '',
-            isDisabled: false,
+            errorMessage: this.props.userNameErrorMessage ? '' : this.props.userNameErrorMessage,
+            isBlur: false,
             onChange: this.onHandleChange.bind(this),
             onBlur: this.onHandleBlur.bind(this),
         };
@@ -19,9 +19,10 @@ class NameValidation extends React.Component {
                 <p className="col">User Name:</p>
                 <input name="userName"
                        type="text"
-                       className={this.state.errorMessage ? "col form-control border-danger" : "col form-control"}
+                       className={this.state.errorMessage && this.state.isBlur ? "col form-control border-danger" : "col form-control"}
                        value={this.state.userName}
                        onChange={this.state.onChange}
+                       onBlur={this.state.onBlur}
                        placeholder="User Name"/>
             </label>
         )
@@ -37,7 +38,6 @@ class NameValidation extends React.Component {
     }
 
     userNameIsValid(value) {
-        console.log('userNameIsValid', value);
         if (value.length >= 3) {
             return {errorMessage: ''};
         } else if (!value) {
@@ -53,17 +53,9 @@ class NameValidation extends React.Component {
     }
 
     onHandleBlur(event) {
-        if (this.userNameIsValid(event.target.value).errorMessage) {
-            this.setState({
-                isDisabled: false,
-            });
-        } else {
-            this.setState({
-                isDisabled: true,
-                //TODO: Remove tag from state. Use string value. Add condition to template to show this p tag if sting is not empty
-                errorMessage: <p className="small text-danger">{this.userNameIsValid(event.target.value).error}</p>
-            });
-        }
+        this.setState({
+            isBlur: true,
+        });
     }
 
     // TODO: All text in App should be taken from JSON
