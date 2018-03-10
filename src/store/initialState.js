@@ -4,6 +4,7 @@ let INITIAL_STATE = () => {
     let data = {
         user: {
             userName: '',
+            nameError: ''
         },
         weight: [],
     };

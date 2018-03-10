@@ -1,23 +1,17 @@
 import React from 'react';
-//TODO: Use Redux.  Access to storage should be with Redux actions
-import storage from '../../store/middleware/storage';
+import {connect} from 'react-redux';
+import {setName} from '../../store/actions/userActions'
+
 import NameValidation from '../../components/nameValidation'
 
 class LoginPage extends React.Component {
 
     constructor(props) {
         super(props);
-        //TODO: errorMessage should be returned from validation component
-        this.state = {
-            userName: '',
-            userNameErrorMessage: '',
-        };
     }
 
     submitLogin() {
-        //TODO: Use Redux action
-        //TODO: prevent default submit event and navigate to main page
-        storage.setItem('UserName', this.state.userName)
+        this.props.setName(this.props.userName)
     }
 
     render() {
@@ -26,9 +20,9 @@ class LoginPage extends React.Component {
                 <h1>Hello New User!</h1>
                 <p>Please input login and password</p>
                 <form className="form-group">
-                    <NameValidation userName={this.state.userName}
-                                    userNameErrorMessage={this.state.userNameErrorMessage}/>
-                    {this.state.userNameErrorMessage}
+                    <NameValidation userName={this.props.userName}
+                                    userNameErrorMessage={this.props.nameError}/>
+                    {this.props.nameError}
                     <label className="row">
                         <p className="col">Password:</p>
                         <input name="password"
@@ -38,8 +32,8 @@ class LoginPage extends React.Component {
                     {/*TODO: use onSubmit event on the form instead onClick*/}
                     <div className="row">
                         <button type="Submit"
-                                disabled={this.state.errorMessage}
-                                className={this.state.errorMessage ? ' btn col btn-secondary' : 'btn col btn-primary'}
+                                disabled={this.props.nameError}
+                                className={this.props.nameError ? ' btn col btn-secondary' : 'btn col btn-primary'}
                                 onClick={() => this.submitLogin()}>
                             Submit
                         </button>
@@ -50,4 +44,17 @@ class LoginPage extends React.Component {
     }
 }
 
-export default LoginPage;
+const mapStateToProps = (state) => {
+    return {
+        user: state.user,
+        nameError: state.nameError
+    }
+};
+const mapDispatchToProps = (dispatch) => {
+    return {
+        setName: (name) => {
+            dispatch(setName(name))
+        }
+    }
+};
+export default connect(mapStateToProps, mapDispatchToProps)(LoginPage);
