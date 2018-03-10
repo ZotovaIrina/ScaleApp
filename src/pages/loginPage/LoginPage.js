@@ -1,17 +1,20 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {setName} from '../../store/actions/userActions'
+import {
+    setName,
+    setNameValidationError,
+} from '../../store/actions/userActions'
 
 import NameValidation from '../../components/nameValidation'
 
 class LoginPage extends React.Component {
 
-    constructor(props) {
-        super(props);
+    submitLogin() {
+        this.props.setName(this.props.userName);
     }
 
-    submitLogin() {
-        this.props.setName(this.props.userName)
+    inputUserName(name) {
+        console.log('User input name', name);
     }
 
     render() {
@@ -21,8 +24,10 @@ class LoginPage extends React.Component {
                 <p>Please input login and password</p>
                 <form className="form-group">
                     <NameValidation userName={this.props.userName}
-                                    userNameErrorMessage={this.props.nameError}/>
-                    {this.props.nameError}
+                                    nameError={this.props.nameError}
+                                    inputUserName={this.inputUserName}
+                                    setError={this.props.setNameValidationError}/>
+                    <span className="text-danger">{this.props.nameError}</span>
                     <label className="row">
                         <p className="col">Password:</p>
                         <input name="password"
@@ -46,14 +51,17 @@ class LoginPage extends React.Component {
 
 const mapStateToProps = (state) => {
     return {
-        user: state.user,
-        nameError: state.nameError
+        userName: state.user.userName || '',
+        nameError: state.user.nameError || ''
     }
 };
 const mapDispatchToProps = (dispatch) => {
     return {
         setName: (name) => {
             dispatch(setName(name))
+        },
+        setNameValidationError: (nameError) => {
+            dispatch(setNameValidationError(nameError))
         }
     }
 };

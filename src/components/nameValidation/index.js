@@ -2,16 +2,22 @@ import React from 'react';
 
 class NameValidation extends React.Component {
 
-    constructor(param) {
-        super(param);
+    constructor(params) {
+        super(params);
+        //User name in storage does not changed until onBlur event
         this.state = {
-            userName: this.props.userName ? '' : this.props.userName,
-            errorMessage: this.props.userNameErrorMessage ? '' : this.props.userNameErrorMessage,
+            userName: this.props.userName || '',
             isBlur: false,
-            onChange: this.onHandleChange.bind(this),
-            onBlur: this.onHandleBlur.bind(this),
-        };
+        }
     }
+
+    passDataToParentComponent(value) {
+        this.props.inputUserName(value);
+        this.props.setError(this.userNameIsValid(value).errorMessage);
+    }
+
+    errorUserNameShort = 'Username should contain no less than 3 symbols';
+    errorUserNameIsRequired = 'User Name is Required';
 
     render() {
         return (
@@ -19,22 +25,24 @@ class NameValidation extends React.Component {
                 <p className="col">User Name:</p>
                 <input name="userName"
                        type="text"
-                       className={this.state.errorMessage && this.state.isBlur ? "col form-control border-danger" : "col form-control"}
+                       className={this.props.nameError ? "col form-control border-danger" : "col form-control"}
                        value={this.state.userName}
-                       onChange={this.state.onChange}
-                       onBlur={this.state.onBlur}
+                       onChange={(e) => this.onHandleChange(e)}
+                       onBlur={(e) => this.onHandleBlur(e)}
                        placeholder="User Name"/>
             </label>
         )
     }
 
-    //TODO: move in separate component to handle validation
     onHandleChange(event) {
         let value = event.target.value;
         this.setState({
-            userName: value,
-            errorMessage: this.userNameIsValid(value).errorMessage,
+            userName: value
         });
+        //After Blur change error text
+        if (this.state.isBlur) {
+            this.passDataToParentComponent(value);
+        }
     }
 
     userNameIsValid(value) {
@@ -49,19 +57,15 @@ class NameValidation extends React.Component {
                 errorMessage: this.errorUserNameShort
             };
         }
-
     }
 
     onHandleBlur(event) {
+        let value = event.target.value;
         this.setState({
-            isBlur: true,
+            isBlur: true
         });
+        this.passDataToParentComponent(value);
     }
-
-    // TODO: All text in App should be taken from JSON
-    errorUserNameShort = 'Username should contain no less than 3 symbols';
-    errorUserNameIsRequired = 'User Name is Required';
-
 
 }
 

@@ -9,6 +9,10 @@ export default (state = INITIAL_STATE.user, action) => {
             storage.setItem('UserName', action.payload);
             break;
         }
+        case 'SET_NAME_VALIDATION_ERROR': {
+            newState.nameError = action.payload;
+            break;
+        }
     }
     return newState;
 };
