@@ -9,7 +9,9 @@ import NameValidation from '../../components/nameValidation'
 
 class LoginPage extends React.Component {
 
-    submitLogin() {
+    submitLogin(e) {
+        console.log('submitLogin');
+        e.preventDefault();
         this.props.setName(this.props.userName);
     }
 
@@ -18,11 +20,12 @@ class LoginPage extends React.Component {
     }
 
     render() {
+        console.log(this.props);
         return (
             <div>
                 <h1>Hello New User!</h1>
                 <p>Please input login and password</p>
-                <form className="form-group">
+                <form className="form-group" onSubmit={(e) => this.submitLogin(e)}>
                     <NameValidation userName={this.props.userName}
                                     nameError={this.props.nameError}
                                     inputUserName={this.inputUserName}
@@ -34,12 +37,10 @@ class LoginPage extends React.Component {
                                type="password"
                                className="col form-control"/>
                     </label>
-                    {/*TODO: use onSubmit event on the form instead onClick*/}
                     <div className="row">
                         <button type="Submit"
                                 disabled={this.props.nameError}
-                                className={this.props.nameError ? ' btn col btn-secondary' : 'btn col btn-primary'}
-                                onClick={() => this.submitLogin()}>
+                                className={this.props.nameError ? ' btn col btn-secondary' : 'btn col btn-primary'}>
                             Submit
                         </button>
                     </div>
