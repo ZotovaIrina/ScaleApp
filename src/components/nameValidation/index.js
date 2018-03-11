@@ -7,16 +7,13 @@ class NameValidation extends React.Component {
 
     render() {
         return (
-            <label className="row">
-                <p className="col">User Name:</p>
-                <input name="userName"
-                       type="text"
-                       className={this.props.nameError && this.props.showUserNameError ? "col form-control border-danger" : "col form-control"}
-                       value={this.props.userName}
-                       onChange={(e) => this.onHandleChange(e)}
-                       onBlur={(e) => this.onHandleBlur(e)}
-                       placeholder="User Name"/>
-            </label>
+            <input name="userName"
+                   type="text"
+                   className={this.props.nameError && this.props.showUserNameError ? "col form-control border-danger" : "col form-control"}
+                   value={this.props.userName}
+                   onChange={(e) => this.onHandleChange(e)}
+                   onBlur={(e) => this.onHandleBlur(e)}
+                   placeholder="User Name"/>
         )
     }
 

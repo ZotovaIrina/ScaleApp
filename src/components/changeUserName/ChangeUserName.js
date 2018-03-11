@@ -1,41 +1,38 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {setUserName} from '../../store/actions/userActions'
+import {
+    setUserName,
+    setAndSaveUserName,
+    setNameValidationError,
+    setShowUserNameError,
+} from '../../store/actions/userActions'
+
+import NameValidation from '../../components/nameValidation'
 
 class ChangeUserName extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            userName: this.props.userName,
-        };
-        this.onChange = this.onHandleChange.bind(this);
-    }
-
-    onHandleChange(event) {
-        console.log('event.target.value');
-        this.setState({
-            userName: event.target.value
-        });
-
-    }
 
     changeUserNameFunction(newName) {
-        this.props.setName(newName);
+        this.props.setAndSaveUserName(newName);
     }
 
     render() {
         return (
             <div>
-                <form>
-                    <label>Input new User Name
-                        <input name="userName"
-                               placeholder="Input new user name"
-                               type="text"
-                               onChange={this.onChange}
-                               value={this.state.userName}/>
+                <form className="form-group"
+                      onSubmit={() => this.changeUserNameFunction(this.props.userName)}>
+                    <label  className="row">
+                        <span className="col">Input new User Name</span>
+                        <NameValidation userName={this.props.userName}
+                                        nameError={this.props.nameError}
+                                        setUserName={this.props.setUserName}
+                                        setError={this.props.setNameValidationError}
+                                        setShowUserNameError={this.props.setShowUserNameError}
+                                        showUserNameError={this.props.showUserNameError}/>
                     </label>
+                    <span className="text-danger">{this.props.showUserNameError ? this.props.nameError : ''}</span>
                     <button type="submit"
-                            onClick={() => this.changeUserNameFunction(this.state.userName)}>
+                            disabled={this.props.nameError || !this.props.userName}
+                            className={this.props.nameError || !this.props.userName ? ' btn col btn-secondary' : 'btn col btn-primary'}>
                         Change user name
                     </button>
                 </form>
@@ -46,13 +43,24 @@ class ChangeUserName extends React.Component {
 
 const mapStateToProps = (state) => {
     return {
-        user: state.user
+        userName: state.user.userName || '',
+        nameError: state.user.nameError || '',
+        showUserNameError: state.user.eventData.showUserNameError || false,
     }
 };
 const mapDispatchToProps = (dispatch) => {
     return {
-        setName: (name) => {
+        setUserName: (name) => {
             dispatch(setUserName(name))
+        },
+        setAndSaveUserName: (name) => {
+            dispatch(setAndSaveUserName(name))
+        },
+        setNameValidationError: (nameError) => {
+            dispatch(setNameValidationError(nameError))
+        },
+        setShowUserNameError: (value) => {
+            dispatch(setShowUserNameError(value))
         }
     }
 };

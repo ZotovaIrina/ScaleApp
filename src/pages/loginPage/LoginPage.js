@@ -22,13 +22,16 @@ class LoginPage extends React.Component {
                 <h1>Hello New User!</h1>
                 <p>Please input login and password</p>
                 <form className="form-group" onSubmit={(e) => this.submitLogin(e)}>
-                    <NameValidation userName={this.props.userName}
-                                    nameError={this.props.nameError}
-                                    setUserName={this.props.setUserName}
-                                    setError={this.props.setNameValidationError}
-                                    setShowUserNameError={this.props.setShowUserNameError}
-                                    showUserNameError={this.props.showUserNameError}/>
-                    <span className="text-danger">{this.props.showUserNameError ? this.props.nameError : ''}</span>
+                    <label className="row">
+                        <span  className="col">User Name: </span>
+                        <NameValidation userName={this.props.userName}
+                                        nameError={this.props.nameError}
+                                        setUserName={this.props.setUserName}
+                                        setError={this.props.setNameValidationError}
+                                        setShowUserNameError={this.props.setShowUserNameError}
+                                        showUserNameError={this.props.showUserNameError}/>
+                        <span className="text-danger">{this.props.showUserNameError ? this.props.nameError : ''}</span>
+                    </label>
                     <label className="row">
                         <p className="col">Password:</p>
                         <input name="password"
