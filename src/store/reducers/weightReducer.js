@@ -1,6 +1,6 @@
-import INITIAL_STATE from '../initialState'
+const INITIAL_STATE = [];
 
-export default (state = INITIAL_STATE.weight, action) => {
+export default (state = INITIAL_STATE, action) => {
     let newState = {...state};
     return newState;
 };

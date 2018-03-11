@@ -52,7 +52,7 @@ const mapStateToProps = (state) => {
     return {
         userName: state.user.userName || '',
         nameError: state.user.nameError || '',
-        showUserNameError: state.user.showUserNameError || false,
+        showUserNameError: state.user.eventData.showUserNameError || false,
     }
 };
 const mapDispatchToProps = (dispatch) => {

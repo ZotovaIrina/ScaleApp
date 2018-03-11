@@ -30,7 +30,7 @@ class Routes extends React.Component {
 
 const mapStateToProps = (state) => {
     return {
-        isUserLoggedIn: state.user.isUserLoggedIn
+        isUserLoggedIn: state.user.eventData.isUserLoggedIn
     }
 };
 const mapDispatchToProps = (dispatch) => {

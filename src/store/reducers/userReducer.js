@@ -1,12 +1,19 @@
-import INITIAL_STATE from '../initialState'
+const INITIAL_STATE = {
+    userName: '',
+    nameError: '',
+    eventData: {
+        isUserLoggedIn: false,
+        showUserNameError: false,
+    }
+};
 
-export default (state = INITIAL_STATE.user, action) => {
+export default (state = INITIAL_STATE, action) => {
     let newState = {...state};
     switch (action.type) {
         case 'SET_USER_NAME_FROM_STORAGE': {
             newState.userName = action.payload;
             if (newState.userName) {
-                newState.isUserLoggedIn = true;
+                newState.eventData.isUserLoggedIn = true;
             }
             break;
         }
@@ -19,7 +26,7 @@ export default (state = INITIAL_STATE.user, action) => {
             break;
         }
         case 'SET_SHOW_USER_NAME_ERROR': {
-            newState.showUserNameError = action.payload;
+            newState.eventData.showUserNameError = action.payload;
             break;
         }
     }
