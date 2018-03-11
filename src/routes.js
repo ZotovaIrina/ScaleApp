@@ -12,7 +12,7 @@ class Routes extends React.Component {
     render() {
         return (
             <div>
-                <Route exact path="/" component={this.props.user.userName ? MainPage : LoginPage}></Route>
+                <Route exact path="/" component={this.props.isUserLoggedIn ? MainPage : LoginPage}></Route>
                 <Route exact path="/weight" component={Weight}></Route>
             </div>
         )
@@ -22,7 +22,7 @@ class Routes extends React.Component {
 
 const mapStateToProps = (state) => {
     return {
-        user: state.user
+        isUserLoggedIn: state.user.isUserLoggedIn
     }
 };
 const mapDispatchToProps = (dispatch) => {

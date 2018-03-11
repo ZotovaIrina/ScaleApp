@@ -16,12 +16,8 @@ class LoginPage extends React.Component {
         this.props.setUserName(this.props.userName);
     }
 
-    inputUserName(name) {
-        console.log('User input name', name);
-    }
-
     render() {
-        console.log(this.props);
+        console.log('!',this.props.nameError && this.props.userName);
         return (
             <div>
                 <h1>Hello New User!</h1>
@@ -29,7 +25,7 @@ class LoginPage extends React.Component {
                 <form className="form-group" onSubmit={(e) => this.submitLogin(e)}>
                     <NameValidation userName={this.props.userName}
                                     nameError={this.props.nameError}
-                                    inputUserName={this.inputUserName}
+                                    setUserName={this.props.setUserName}
                                     setError={this.props.setNameValidationError}/>
                     <span className="text-danger">{this.props.nameError}</span>
                     <label className="row">
