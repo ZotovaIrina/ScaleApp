@@ -1,7 +1,8 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {
-    setName,
+    setUserName,
+    setAndSaveUserName,
     setNameValidationError,
 } from '../../store/actions/userActions'
 
@@ -12,7 +13,7 @@ class LoginPage extends React.Component {
     submitLogin(e) {
         console.log('submitLogin');
         e.preventDefault();
-        this.props.setName(this.props.userName);
+        this.props.setUserName(this.props.userName);
     }
 
     inputUserName(name) {
@@ -58,8 +59,11 @@ const mapStateToProps = (state) => {
 };
 const mapDispatchToProps = (dispatch) => {
     return {
-        setName: (name) => {
-            dispatch(setName(name))
+        setUserName: (name) => {
+            dispatch(setUserName(name))
+        },
+        setAndSaveUserName: (name) => {
+            dispatch(setAndSaveUserName(name))
         },
         setNameValidationError: (nameError) => {
             dispatch(setNameValidationError(nameError))

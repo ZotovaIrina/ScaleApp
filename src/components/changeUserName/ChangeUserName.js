@@ -1,6 +1,6 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {setName} from '../../store/actions/userActions'
+import {setUserName} from '../../store/actions/userActions'
 
 class ChangeUserName extends React.Component {
     constructor(props) {
@@ -52,7 +52,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
     return {
         setName: (name) => {
-            dispatch(setName(name))
+            dispatch(setUserName(name))
         }
     }
 };
