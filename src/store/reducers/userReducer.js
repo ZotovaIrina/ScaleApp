@@ -3,6 +3,13 @@ import INITIAL_STATE from '../initialState'
 export default (state = INITIAL_STATE.user, action) => {
     let newState = {...state};
     switch (action.type) {
+        case 'SET_DEFAULT_USER_NAME': {
+            newState.userName = action.payload;
+            if (newState.userName) {
+                newState.isUserLoggedIn = true;
+            }
+            break;
+        }
         case 'SET_NAME': {
             newState.userName = action.payload;
             break;

@@ -4,11 +4,19 @@ import {
 } from 'react-router-dom';
 import {connect} from 'react-redux';
 
+import {
+    setDefaultUserName,
+} from './store/actions/userActions'
 import MainPage from './pages/mainPage/MainPage'
 import Weight from './pages/weight/Weight'
 import LoginPage from './pages/loginPage/LoginPage'
 
 class Routes extends React.Component {
+    constructor(params) {
+        super(params);
+        this.props.setDefaultUserName();
+    }
+
     render() {
         return (
             <div>
@@ -27,7 +35,9 @@ const mapStateToProps = (state) => {
 };
 const mapDispatchToProps = (dispatch) => {
     return {
-
+        setDefaultUserName: () => {
+            dispatch(setDefaultUserName())
+        }
     }
 };
 export default connect(mapStateToProps, mapDispatchToProps)(Routes);

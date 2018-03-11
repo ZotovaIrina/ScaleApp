@@ -1,5 +1,12 @@
 import storage from '../middleware/storage';
 
+export function setDefaultUserName() {
+    return {
+        type: 'SET_DEFAULT_USER_NAME',
+        payload: storage.getItem('UserName')
+    }
+}
+
 export function setUserName(name) {
     return {
         type: 'SET_NAME',
