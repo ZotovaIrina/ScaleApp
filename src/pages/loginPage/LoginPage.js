@@ -12,13 +12,11 @@ import NameValidation from '../../components/nameValidation'
 class LoginPage extends React.Component {
 
     submitLogin(e) {
-        console.log('submitLogin');
         e.preventDefault();
-        this.props.setUserName(this.props.userName);
+        this.props.setAndSaveUserName(this.props.userName);
     }
 
     render() {
-        console.log('!',this.props.nameError && this.props.userName);
         return (
             <div>
                 <h1>Hello New User!</h1>
