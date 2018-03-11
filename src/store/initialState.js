@@ -6,6 +6,7 @@ let INITIAL_STATE = () => {
             userName: '',
             nameError: '',
             isUserLoggedIn: false,
+            showUserNameError: false,
         },
         weight: [],
     };

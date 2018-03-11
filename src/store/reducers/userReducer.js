@@ -11,6 +11,10 @@ export default (state = INITIAL_STATE.user, action) => {
             newState.nameError = action.payload;
             break;
         }
+        case 'SET_SHOW_USER_NAME_ERROR': {
+            newState.showUserNameError = action.payload;
+            break;
+        }
     }
     return newState;
 };

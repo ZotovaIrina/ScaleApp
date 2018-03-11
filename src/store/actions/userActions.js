@@ -21,3 +21,10 @@ export function setNameValidationError(nameError) {
         payload: nameError
     }
 }
+
+export function setShowUserNameError(value) {
+    return {
+        type: 'SET_SHOW_USER_NAME_ERROR',
+        payload: value
+    }
+}

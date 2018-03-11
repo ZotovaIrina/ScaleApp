@@ -4,6 +4,7 @@ import {
     setUserName,
     setAndSaveUserName,
     setNameValidationError,
+    setShowUserNameError,
 } from '../../store/actions/userActions'
 
 import NameValidation from '../../components/nameValidation'
@@ -26,8 +27,10 @@ class LoginPage extends React.Component {
                     <NameValidation userName={this.props.userName}
                                     nameError={this.props.nameError}
                                     setUserName={this.props.setUserName}
-                                    setError={this.props.setNameValidationError}/>
-                    <span className="text-danger">{this.props.nameError}</span>
+                                    setError={this.props.setNameValidationError}
+                                    setShowUserNameError={this.props.setShowUserNameError}
+                                    showUserNameError={this.props.showUserNameError}/>
+                    <span className="text-danger">{this.props.showUserNameError ? this.props.nameError : ''}</span>
                     <label className="row">
                         <p className="col">Password:</p>
                         <input name="password"
@@ -36,8 +39,8 @@ class LoginPage extends React.Component {
                     </label>
                     <div className="row">
                         <button type="Submit"
-                                disabled={this.props.nameError}
-                                className={this.props.nameError ? ' btn col btn-secondary' : 'btn col btn-primary'}>
+                                disabled={this.props.nameError || !this.props.userName}
+                                className={this.props.nameError || !this.props.userName ? ' btn col btn-secondary' : 'btn col btn-primary'}>
                             Submit
                         </button>
                     </div>
@@ -50,7 +53,8 @@ class LoginPage extends React.Component {
 const mapStateToProps = (state) => {
     return {
         userName: state.user.userName || '',
-        nameError: state.user.nameError || ''
+        nameError: state.user.nameError || '',
+        showUserNameError: state.user.showUserNameError || false,
     }
 };
 const mapDispatchToProps = (dispatch) => {
@@ -63,6 +67,9 @@ const mapDispatchToProps = (dispatch) => {
         },
         setNameValidationError: (nameError) => {
             dispatch(setNameValidationError(nameError))
+        },
+        setShowUserNameError: (value) => {
+            dispatch(setShowUserNameError(value))
         }
     }
 };
