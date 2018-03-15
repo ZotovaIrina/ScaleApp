@@ -1,43 +1,23 @@
-import React from 'react';
-import {
-    Route
-} from 'react-router-dom';
-import {connect} from 'react-redux';
+import NavigationBar from './components/navigationBar/NavigationBar'
+import MainPage from './pages/mainPage/MainPage';
+import Weight from './pages/weight/Weight';
+import LoginPage from './pages/loginPage/LoginPage';
 
-import {
-    setDefaultUserName,
-} from './store/actions/userActions'
-import MainPage from './pages/mainPage/MainPage'
-import Weight from './pages/weight/Weight'
-import LoginPage from './pages/loginPage/LoginPage'
-
-class Routes extends React.Component {
-    constructor(params) {
-        super(params);
-        this.props.setDefaultUserName();
+const routes = [
+    { path: '/',
+        exact: true,
+        navigationBar: NavigationBar,
+        main: MainPage
+    },
+    { path: '/login',
+        main: LoginPage
+    },
+    { path: '/weight',
+        exact: true,
+        navigationBar: NavigationBar,
+        main: Weight
     }
-
-    render() {
-        return (
-            <div>
-                <Route exact path="/" component={this.props.isUserLoggedIn ? MainPage : LoginPage}></Route>
-                <Route exact path="/weight" component={Weight}></Route>
-            </div>
-        )
-    }
-}
+];
 
 
-const mapStateToProps = (state) => {
-    return {
-        isUserLoggedIn: state.user.eventData.isUserLoggedIn
-    }
-};
-const mapDispatchToProps = (dispatch) => {
-    return {
-        setDefaultUserName: () => {
-            dispatch(setDefaultUserName())
-        }
-    }
-};
-export default connect(mapStateToProps, mapDispatchToProps)(Routes);
+export default routes;
