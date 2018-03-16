@@ -6,14 +6,18 @@ import LoginPage from './pages/loginPage/LoginPage';
 const routes = [
     { path: '/',
         exact: true,
+        authorization: true,
         navigationBar: NavigationBar,
         main: MainPage
     },
     { path: '/login',
+        exact: true,
+        authorization: false,
         main: LoginPage
     },
     { path: '/weight',
         exact: true,
+        authorization: true,
         navigationBar: NavigationBar,
         main: Weight
     }

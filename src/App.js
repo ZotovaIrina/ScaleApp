@@ -1,7 +1,8 @@
 import React from 'react';
 import {
     BrowserRouter as Router,
-    Route
+    Route,
+    Redirect
 } from 'react-router-dom';
 import {
     connect
@@ -18,46 +19,75 @@ class App extends React.Component {
         this.props.setDefaultUserName();
     }
 
+    loadPage = <div>Load...</div>;
+
     render() {
         return (
-
             <Router>
-                <div className="container">
-                    <div className="Navigation-bar">
-                    {routes.map((route, index) => (
-                        // You can render a <Route> in as many places
-                        // as you want in your app. It will render along
-                        // with any other <Route>s that also match the URL.
-                        // So, a sidebar or breadcrumbs or anything else
-                        // that requires you to render multiple things
-                        // in multiple places at the same URL is nothing
-                        // more than multiple <Route>s.
-                        <Route
-                            key={index}
-                            path={route.path}
-                            exact={route.exact}
-                            component={route.navigationBar}
-                        />
-                    ))}
-                    </div>
-                    <div className="main-container">
-                        {routes.map((route, index) => (
-                            <Route
-                                key={index}
-                                path={route.path}
-                                exact={route.exact}
-                                component={route.main}
-                            />
-                        ))}
-                    </div>
-                </div>
+                {this.props.isDefaultDataReceived ? (
+                    <div className="container">
+                        <div className="navigation-bar">
+                            {routes.map((route, index) => (
+                                route.authorization ?
+                                    (<PrivateRoute
+                                        key={index}
+                                        path={route.path}
+                                        isUserLoggedIn={this.props.isUserLoggedIn}
+                                        exact={route.exact}
+                                        component={route.navigationBar}/>)
+                                    :
+                                (<Route
+                                    key={index}
+                                    path={route.path}
+                                    exact={route.exact}
+                                    component={route.navigationBar}/>)
+                                ))}
+                        </div>
+                        <div className="main-container">
+                            {routes.map((route, index) => (
+                                route.authorization ?
+                                    (<PrivateRoute
+                                        key={index}
+                                        path={route.path}
+                                        isUserLoggedIn={this.props.isUserLoggedIn}
+                                        exact={route.exact}
+                                        component={route.main}/>)
+                                    :
+                                    (<Route
+                                        key={index}
+                                        path={route.path}
+                                        exact={route.exact}
+                                        component={route.main}/>)
+                            ))}
+                        </div>
+                    </div>) : this.loadPage}
             </Router>
         )
     }
 }
+
+const PrivateRoute = ({component: Component, isUserLoggedIn, ...rest}) => (
+    <Route
+        {...rest}
+        render={props =>
+            isUserLoggedIn ? (
+                <Component {...props} />
+            ) : (
+                <Redirect
+                    to={{
+                        pathname: "/login",
+                        state: {from: props.location}
+                    }}
+                />
+            )
+        }
+    />
+);
+
 const mapStateToProps = (state) => {
     return {
-        isUserLoggedIn: state.user.eventData.isUserLoggedIn
+        isUserLoggedIn: state.user.eventData.isUserLoggedIn,
+        isDefaultDataReceived: state.user.eventData.isDefaultDataReceived,
     }
 };
 const mapDispatchToProps = (dispatch) => {

@@ -2,6 +2,7 @@ const INITIAL_STATE = {
     userName: '',
     nameError: '',
     eventData: {
+        isDefaultDataReceived: false,
         isUserLoggedIn: false,
         showUserNameError: false,
     }
@@ -11,6 +12,14 @@ export default (state = INITIAL_STATE, action) => {
     let newState = {...state};
     switch (action.type) {
         case 'SET_USER_NAME_FROM_STORAGE': {
+            newState.userName = action.payload;
+            if (newState.userName) {
+                newState.eventData.isUserLoggedIn = true;
+            }
+            break;
+        }
+        case 'SET_DEFAULT_USER_DATA': {
+            newState.eventData.isDefaultDataReceived = true;
             newState.userName = action.payload;
             if (newState.userName) {
                 newState.eventData.isUserLoggedIn = true;
